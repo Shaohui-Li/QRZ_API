@@ -5,7 +5,7 @@ base_path=os.path.dirname(os.getcwd())
 class Excel_handle:
     def load_excel(self,file_path=None):
         if file_path==None:
-            self.file_path=base_path+"\\config\\testsuite.xlsx"
+            self.file_path=base_path+"\\config\\login_test_case.xlsx"
         else:
             self.file_path=base_path+file_path
         open_excel=openpyxl.load_workbook(self.file_path)
