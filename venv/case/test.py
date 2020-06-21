@@ -1,6 +1,7 @@
 from handle import Way_of_request
 import time
 import json
+import random
 from cookie_handle import cookie_action
 class QRZ_login:
 
@@ -37,4 +38,6 @@ class QRZ_login:
         data2 = self.Rw.post_url(url, data, header=hearder, cookie=None, cookie_location=None)
         print(data2)
 if __name__=="__main__":
-    QRZ_login().login()
+    number=("".join(random.choice("0123456789") for i in range(2)))
+    print(number+(str(round(time.time()*10000))))
+    

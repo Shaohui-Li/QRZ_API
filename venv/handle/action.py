@@ -1,5 +1,6 @@
 #coding=utf-8
 import random
+import time
 class Action:
     def createPhone(self):
         for k in range(10):
@@ -34,6 +35,10 @@ class Action:
         last_name=self.GBK2312()
         name = first_name + second_name + last_name
         return name
+    def id_number(self):
+        number = ("".join(random.choice("0123456789") for i in range(2)))
+        id=number + (str(round(time.time() * 10000)))
+        return id
 
 
 if __name__=="__main__":
