@@ -13,7 +13,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-
 class Test_addclue(unittest.TestCase):
     def setUp(self):
         self.he = excel_handle.Excel_handle()

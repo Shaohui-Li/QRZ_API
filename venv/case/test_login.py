@@ -14,7 +14,7 @@ class test_login(unittest.TestCase):
     def test_login(self):
         number=self.he.get_rows(0)
         for i in range(2,number+1):
-            base_url="https://schooltest.xiaogj.com"
+            base_url="https://ischool.xiaogj.com"
             cur_time = int(round(time.time() * 1000))
             data=self.he.get_rows_value(i)
             case_number,case_name,if_run,pre_condition,request_way,take_header,action_cookie,interface,appid,request_data,expect_way,expect_value,result,wrong_data,return_data,inherit_element=data

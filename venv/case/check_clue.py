@@ -45,9 +45,11 @@ class Test_checkclue(unittest.TestCase):
             request_data = json.loads(request_data, encoding="utf-8")
             request_data["_t_"] = cur_time
             if case_number == "case_002":
-                request_data["baseinfo"]["phone"] = phone#生成手机号码
-                request_data["baseinfo"]["name"] = name#生成学生名称
+                request_data["baseinfo"]["smstel"] = phone
+                request_data["baseinfo"]["name"] = name
+                request_data["baseinfo"]["certificatesnumber"] = id
             request_data = json.dumps(request_data)
+            print(request_data)
             hearder = {
                 "Content-Type": "application/json",
                 "Connection": "keep-alive",
@@ -76,8 +78,5 @@ class Test_checkclue(unittest.TestCase):
                 self.assertEqual("成功",flag)
             except Exception as E:
                 self.he.write_cell_value(i, 15, result, sheetname="check_clue")
-                self.he.write_cell_value(i, 13, "Fail",sheetname="check_clue")
-
-                
-                
-            
+                self.he.write_cell_value(i, 13, "Fail",sheetname="check_clue")     
+ 
