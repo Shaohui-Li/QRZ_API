@@ -30,5 +30,6 @@ class Request_ways():
         try:
             res=json.loads(res)
         except:
+            print(res)
             print("内容不是json格式")
         return res
