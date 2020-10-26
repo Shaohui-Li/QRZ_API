@@ -1,4 +1,7 @@
 #coding=utf-8
+import sys
+sys.path.append(r"D:\project\quanrizhi\venv\lib\site-packages")
+sys.path.append(r"D:\project\quanrizhi\venv\config")
 import openpyxl
 import os
 base_path=os.path.dirname(os.getcwd())
