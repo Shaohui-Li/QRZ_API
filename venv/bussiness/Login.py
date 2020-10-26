@@ -1,4 +1,6 @@
 #coding=utf-8
+import sys
+sys.path.append(r"D:\project\QRZ_API\venv")
 from handle import excel_handle
 from handle import Way_of_request
 from cookie_handle import cookie_action

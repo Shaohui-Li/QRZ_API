@@ -1,7 +1,7 @@
 #coding=utf-8
 import warnings
 import sys
-sys.path.append(r"D:\project\QRZ\venv")
+sys.path.append(r"D:\project\QRZ_API\venv")
 from bussiness import Login,add_clue
 import HTMLTestRunner
 import os
