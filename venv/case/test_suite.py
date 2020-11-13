@@ -2,7 +2,7 @@
 import warnings
 import sys
 sys.path.append(r"D:\project\QRZ_API\venv")
-from bussiness import Login,add_clue
+from bussiness import Login,add_clue,add_student
 import HTMLTestRunner
 import os
 from handle import reboat_request
@@ -21,6 +21,9 @@ class Test_API(unittest.TestCase):
     def test_addclue(self):
         result=add_clue.addclue().test_add_clue()
         self.assertTrue(result)
+    def test_addstudent(self):
+        result=add_student.addstudent().test_add_student()
+        self.assertTrue(result)
     def tearDown(self) -> None:
         print("测试结束")
 
@@ -29,6 +32,7 @@ if __name__=="__main__":
     suite = unittest.TestSuite()
     suite.addTest(Test_API("test_login"))
     suite.addTest(Test_API("test_addclue"))
+    suite.addTest(Test_API("test_addstudent"))
     time_name=str(time.strftime("%m-%d_%H-%M-%S", time.localtime())).strip(" ")
     report_name=time_name+"全日智API冒烟测试结果.html"
     report_path = os.path.dirname(os.getcwd()) + "\\Report\\"+report_name
