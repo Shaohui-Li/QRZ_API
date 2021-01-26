@@ -18,7 +18,7 @@ from selenium.webdriver.common.by import By
 
 class addclue:
     def __init__(self):
-        self.he = excel_handle.Excel_handle()
+        self.he = excel_handle.Excel_handle(index=1)
         self.hw = Way_of_request.Request_ways()
         self.ha = cookie_action.Cookie_handle()
         self.ac=action.Action()
@@ -36,13 +36,12 @@ class addclue:
         # print(sessionid["value"].split("=")[1])
         fulltime_session="xgj_fulltime_session="+str(fulltime_session)
         self.ha.write_cookie("cookie",fulltime_session)
+        driver.quit()
         return fulltime_session
     def test_add_clue(self):
         number = self.he.get_rows(1)
         phone=self.ac.createPhone()#生成随机手机号码
         name=self.ac.create_name()#生成随机姓名
-        # print(name,chardet.detect(name))
-        # print(name,chardet.detect(name))
         for i in range(2, number + 1):
             base_url = "https://ischool.xiaogj.com"
             cur_time = int(round(time.time() * 1000))
@@ -54,6 +53,8 @@ class addclue:
             if case_number=="case_002":
                 request_data["baseinfo"]["phone"]=phone
                 request_data["baseinfo"]["name"]=name
+                request_data["familyinfos"][0]["name"]="全日智API父亲姓名"
+                request_data["familyinfos"][1]["name"] = "全日智API母亲姓名"
             request_data = json.dumps(request_data)
             hearder = {
                 "Content-Type": "application/json",
@@ -80,4 +81,3 @@ class addclue:
 if __name__=="__main__":
     if(addclue().test_add_clue()):
         print("用例执行成功")
-    # Test_addclue().login()

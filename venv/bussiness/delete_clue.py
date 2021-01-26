@@ -13,9 +13,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-class addstudent:
+class deleteclue:
     def __init__(self):
-        self.he = excel_handle.Excel_handle(index=2)
+        self.he = excel_handle.Excel_handle(index=6)
         self.hw = Way_of_request.Request_ways()
         self.ha = cookie_action.Cookie_handle()
         self.ac = action.Action()
@@ -35,13 +35,8 @@ class addstudent:
         self.ha.write_cookie("cookie", fulltime_session)
         driver.quit()
         return fulltime_session
-    def test_add_student(self):
-        number = self.he.get_rows(2)#获取用例表行数
-        phone=self.ac.createPhone()#生成随机手机号码
-        name=self.ac.create_name()#生成随机姓名
-        id=self.ac.id_number()#生成身份证号码
-        # print(name,chardet.detect(name))
-        # print(name,chardet.detect(name))
+    def test_delete_clue(self):
+        number = self.he.get_rows(6)#获取用例表行数
         for i in range(2, number + 1):
             base_url = "https://ischool.xiaogj.com"
             cur_time = int(round(time.time() * 1000))
@@ -51,9 +46,11 @@ class addstudent:
             url = base_url + interface
             request_data = json.loads(request_data, encoding="utf-8")
             request_data["_t_"] = cur_time
-            if case_number == "case_003":
-                request_data["baseinfo"]["phone"] = phone
-                request_data["baseinfo"]["name"] = name
+            if case_number=="case_009":
+                request_data["ids"][0]=id
+                request_data["listcluesimpleinfo"][0]["id"]=id
+                request_data["listcluesimpleinfo"][0]["name"]=name
+                request_data["listcluesimpleinfo"][0]["phone"]=phone
             request_data = json.dumps(request_data)
             hearder = {
                 "Content-Type": "application/json",
@@ -66,17 +63,27 @@ class addstudent:
                                             cookie_location=None)
             try:
                 print(result)
+                if case_number=="case_005":
+                    id=result["data"][0]["id"]
+                    name=result["data"][0]["name"]
+                    phone=result["data"][0]["phone"]
                 flag = result["result"]["msg"]
                 result = json.dumps(result)
                 if flag == "成功":
-                    self.he.write_cell_value(i, 13, "Pass", sheetname="add_student")
-                    self.he.write_cell_value(i, 15, result, sheetname="add_student")
-                    return True
+                    self.he.write_cell_value(i, 13, "Pass", sheetname="delete_clue")
+                    self.he.write_cell_value(i, 15, result, sheetname="delete_clue")
+                    flag_value = True
+                else:
+                    flag_value = False
+
             except Exception as E:
-                self.he.write_cell_value(i, 15, result, sheetname="add_student")
-                self.he.write_cell_value(i, 13, "Fail", sheetname="add_student")
+                self.he.write_cell_value(i, 15, result, sheetname="delete_clue")
+                self.he.write_cell_value(i, 13, "Fail", sheetname="delete_clue")
                 return False
+        return flag_value
 
 if __name__=="__main__":
-    if (addstudent().test_add_student()):
+    if (deleteclue().test_delete_clue()):
         print("用例执行成功")
+    else:
+        print("执行失败")

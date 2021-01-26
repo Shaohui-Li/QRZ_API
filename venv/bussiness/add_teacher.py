@@ -13,9 +13,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-class addstudent:
+class add_teacher:
     def __init__(self):
-        self.he = excel_handle.Excel_handle(index=2)
+        self.he = excel_handle.Excel_handle(index=3)
         self.hw = Way_of_request.Request_ways()
         self.ha = cookie_action.Cookie_handle()
         self.ac = action.Action()
@@ -35,13 +35,12 @@ class addstudent:
         self.ha.write_cookie("cookie", fulltime_session)
         driver.quit()
         return fulltime_session
-    def test_add_student(self):
-        number = self.he.get_rows(2)#获取用例表行数
+    def test_add_teacher(self):
+        number = self.he.get_rows(3)#获取用例表行数
         phone=self.ac.createPhone()#生成随机手机号码
         name=self.ac.create_name()#生成随机姓名
-        id=self.ac.id_number()#生成身份证号码
-        # print(name,chardet.detect(name))
-        # print(name,chardet.detect(name))
+        sex_list=[1,2]
+        sex=random.choice(sex_list)
         for i in range(2, number + 1):
             base_url = "https://ischool.xiaogj.com"
             cur_time = int(round(time.time() * 1000))
@@ -51,9 +50,13 @@ class addstudent:
             url = base_url + interface
             request_data = json.loads(request_data, encoding="utf-8")
             request_data["_t_"] = cur_time
-            if case_number == "case_003":
-                request_data["baseinfo"]["phone"] = phone
-                request_data["baseinfo"]["name"] = name
+            if case_number == "case_004":
+                request_data["employeeinfo"]["smstel"] = phone
+                request_data["employeeinfo"]["name"] = name
+                request_data["employeeinfo"]["nickname"] = name
+                request_data["employeeinfo"]["sex"] = sex
+                request_data["userinfo"]["username"] = name+"@schooltest2"
+
             request_data = json.dumps(request_data)
             hearder = {
                 "Content-Type": "application/json",
@@ -78,5 +81,8 @@ class addstudent:
                 return False
 
 if __name__=="__main__":
-    if (addstudent().test_add_student()):
+    if (add_teacher().test_add_teacher()):
         print("用例执行成功")
+    else:
+        print("执行失败")
+
