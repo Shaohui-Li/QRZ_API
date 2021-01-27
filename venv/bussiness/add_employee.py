@@ -19,28 +19,12 @@ class add_employee:
         self.hw = Way_of_request.Request_ways()
         self.ha = cookie_action.Cookie_handle()
         self.ac = action.Action()
-    def login(self):
-        option = webdriver.ChromeOptions()
-        option.add_argument('headless')
-        driver = webdriver.Chrome(chrome_options=option)
-        driver.get("https://ischool.xiaogj.com")
-        time.sleep(1)
-        driver.find_elements_by_class_name("el-input__inner")[0].send_keys("admin@schooltest2")
-        driver.find_elements_by_class_name("el-input__inner")[1].send_keys("Qrz888888")
-        driver.find_element_by_class_name("entry-login").click()
-        WebDriverWait(driver, 20, 0.5).until(EC.element_to_be_clickable(((By.CLASS_NAME, "photo"))))
-        fulltime_session = driver.get_cookie("xgj_fulltime_session")["value"]
-        # print(sessionid["value"].split("=")[1])
-        fulltime_session = "xgj_fulltime_session=" + str(fulltime_session)
-        self.ha.write_cookie("cookie", fulltime_session)
-        driver.quit()
-        return fulltime_session
+    
     def test_add_employ(self):
         number = self.he.get_rows(7)#获取用例表行数
         phone=self.ac.createPhone()#生成随机手机号码
         name=self.ac.create_name()#生成随机姓名
         id=self.ac.id_number()#生成身份证号码
-
         for i in range(2, number + 1):
             base_url = "https://ischool.xiaogj.com"
             cur_time = int(round(time.time() * 1000))
@@ -61,10 +45,9 @@ class add_employee:
                 "Connection": "keep-alive",
                 "Host": "ischool.xiaogj.com"
             }
-            hearder["Cookie"] = self.login()
             if if_run == "YES":
                 result = self.hw.do_request(url, request_way, request_data, header=hearder, cookie=None,
-                                            cookie_location=None)
+                                            take_headers=take_header)
             try:
                 print(result)
                 flag = result["result"]["msg"]

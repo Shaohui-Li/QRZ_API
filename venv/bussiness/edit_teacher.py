@@ -25,21 +25,7 @@ class addclue:
         self.ha = cookie_action.Cookie_handle()
         self.ac = action.Action()
         self.he2 = excel_handle.Excel_handle("D:\project\QRZ_API\\venv\config\\腾飞电话号码.xls")
-    def login(self):
-        option = webdriver.ChromeOptions()
-        option.add_argument('headless')
-        driver = webdriver.Chrome(chrome_options=option)
-        driver.get("https://ischool.xiaogj.com")
-        time.sleep(1)
-        driver.find_elements_by_class_name("el-input__inner")[0].send_keys("admin@schooltest2")
-        driver.find_elements_by_class_name("el-input__inner")[1].send_keys("Qrz888888")
-        driver.find_element_by_class_name("entry-login").click()
-        WebDriverWait(driver, 20, 0.5).until(EC.element_to_be_clickable(((By.CLASS_NAME, "photo"))))
-        fulltime_session = driver.get_cookie("xgj_fulltime_session")["value"]
-        # print(sessionid["value"].split("=")[1])
-        fulltime_session = "xgj_fulltime_session=" + str(fulltime_session)
-        self.ha.write_cookie("cookie", fulltime_session)
-        return fulltime_session
+    
 
     def test_add_clue(self):
         number = self.he.get_rows(1)
@@ -66,10 +52,9 @@ class addclue:
                 "Connection": "keep-alive",
                 "Host": "ischool.xiaogj.com"
             }
-            hearder["Cookie"] = self.login()
             if if_run == "YES":
                 result = self.hw.do_request(url, request_way, request_data, header=hearder, cookie=None,
-                                            cookie_location=None)
+                                            take_headers=take_header)
             try:
                 print(result)
                 flag = result["result"]["msg"]

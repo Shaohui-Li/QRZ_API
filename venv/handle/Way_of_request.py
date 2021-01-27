@@ -6,31 +6,41 @@ import json
 import requests
 requests.packages.urllib3.disable_warnings()
 from cookie_handle.cookie_action import Cookie_handle
+from handle.action import Action
 class Request_ways():
     def __init__(self):
+        self.ac=Action()
         self.sess = requests.Session()
     """封装接口请求  cookie_location表示cookie是web还是app"""
-    def post_url(self,url,data,cookie,cookie_location,header=None):
+    def post_url(self,url,data,cookie,take_headers,header=None):
+        if take_headers!=None:
+            if self.ac.is_login():
+                header["Cookie"]=Cookie_handle().get_cookie("seesion")
+            else:
+                self.ac.Login()
+                header["Cookie"]=Cookie_handle().get_cookie("seesion")
+        else:
+            pass
         response=self.sess.post(url,data=data,cookies=cookie,headers=header,verify=False)
-        if cookie_location!=None:
-            cookie_data=response.cookies
-            cook_value=requests.utils.dict_from_cookiejar(self.sess.cookies)
-            Cookie_handle().write_cookie(cookie_location["location"],cook_value)
         res = response.text
         return res
-    def get_url(self,url,data,cookie,cookie_location,header=None):
-        response=self.sess.get(url,params=data,cookies=cookie,headers=header,verify=False)
-        if cookie_location!=None:
-            cookie_data=response.cookies
-            cook_value=requests.utils.dict_from_cookiejar(cookie_data)
-            Cookie_handle().write_cookie(cookie_location["location"],cook_value)
+    def get_url(self,url,data,cookie,take_headers,header=None):
+        if take_headers!=None:
+            if self.ac.is_login():
+                header["Cookie"] = Cookie_handle().get_cookie("seesion")
+            else:
+                self.ac.Login()
+                header["Cookie"] = Cookie_handle().get_cookie("seesion")
+        else:
+            pass
+        response=self.sess.get(url,params=data,cookies=cookie,headers=header,verify=False,allow_redirects=True)
         res=response.text
         return res
-    def do_request(self,url,method,data,cookie=None,cookie_location=None,header=None):
+    def do_request(self,url,method,data,cookie=None,take_headers=None,header=None):
         if method=="POST":
-            res=self.post_url(url,data,cookie,cookie_location,header)
+            res=self.post_url(url,data,cookie,take_headers,header)
         elif method=="GET":
-            res=self.get_url(url,data,cookie,cookie_location,heade)
+            res=self.get_url(url,data,cookie,take_headers,header)
         try:
             res=json.loads(res)
         except:

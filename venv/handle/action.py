@@ -4,9 +4,13 @@ import sys
 curPath = os.path.abspath(os.path.dirname(__file__))
 rootPath = os.path.split(curPath)[0]
 sys.path.append(rootPath)
+print(rootPath)
+import json
 import random
 from random import sample
+import requests
 import time
+from cookie_handle.cookie_action import Cookie_handle
 class Action:
     def createPhone(self):
         for k in range(10):
@@ -109,17 +113,78 @@ class Action:
         all_number="1234567890"
         five = random.randint(9999, 999999)
         return pre[0]+pre[1]+str(five)
+    def Login(self):
+        sees=requests.Session()
 
-
+        hearder = {
+            "Content-Type": "application/json",
+            "Connection": "keep-alive",
+            "Host": "ischool.xiaogj.com"
+        }
+        cookie_location = {"location": "seesion"}
+        url = "https://ischool.xiaogj.com/Pc.do?appid=1&action=login"
+        request_data={'username': 'shaohui1@schooltest2', 'password': '123456', 'website': 'https://ischool.xiaogj.com', '_t_': 1611714114332}
+        request_data = json.dumps(request_data)
+        request_data = json.loads(request_data, encoding="utf-8")
+        print(request_data)
+        cur_time = int(round(time.time() * 1000))
+        request_data["_t_"] = cur_time
+        request_data = json.dumps(request_data)
+        result = sees.post(url, data=request_data,headers=hearder, cookies=None)#登录接口
+        result=result.text
+        result = json.loads(result)
+        print(result)
+        authurl = result["authurl"]
+        website = result["website"]
+        token = result["token"]
+        flag = result["result"]["msg"]
+        if flag == "成功":
+            flag_value = True
+        returl = "&returl=https%3A%2F%2Fschooltest.xiaogj.com%2Findex.html"
+        url = authurl + "?appid=1&website=" + website + "&auth_token="+token
+        print(url)
+        result=requests.head(url)
+        # result = sees.post(url, cookies=None,
+        #                   verify=False,allow_redirects=True)  # 重定向sso
+        print(result)
+        print(result.headers["Location"])
+        url=result.headers["Location"]
+        qrz_session="xgj_fulltime_session=session_Id="+url.split("=")[4]
+        Cookie_handle().write_cookie(cookie_location["location"], qrz_session)
+        # result = sees.post(url, data=request_data, headers=hearder, cookies=None)
+        # print(result.headers)
+    ##判断是否登录
+    def is_login(self):
+        sees = requests.Session()
+        hearder = {
+            "Content-Type": "application/json",
+            "Connection": "keep-alive",
+            "Host": "ischool.xiaogj.com"
+        }
+        url="http://ischool.xiaogj.com/Pc.do?appid=1&action=islogin"
+        cookie = Cookie_handle().get_cookie("seesion")
+        hearder["Cookie"] = cookie
+        cur_time = int(round(time.time() * 1000))
+        request_data={}
+        request_data["_t_"] = cur_time
+        try:
+            result = sees.post(url, data=request_data, headers=hearder, cookies=None)
+            result = result.text
+            result = json.loads(result)
+            flag = result["result"]["code"]
+        except Exception as E:
+            print(E)
+            return False
+        if flag ==20017:
+            return True
+        else:
+            return False
 if __name__=="__main__":
 
     # print(Action().createPhone())
     # print(Action().create_name())
-    for i in range(100):
-        # print(Action().creat_sutdent_id())
-        parents_id=Action().creat_parents_id()
-        print(parents_id)
-        print(parents_id[6:14])
-        print(parents_id[6:10]+"/"+parents_id[10:12]+"/"+parents_id[12:14])
-        student_code=Action().Student_code()
-        print(student_code)
+    Action().Login()
+    if(Action().is_login()):
+        print("登录成功")
+    else:
+        print("登录失败")
