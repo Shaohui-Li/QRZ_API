@@ -25,14 +25,11 @@ class addstudent:
         phone=self.ac.createPhone()#生成随机手机号码
         name=self.ac.create_name()#生成随机姓名
         id=self.ac.id_number()#生成身份证号码
-        # print(name,chardet.detect(name))
-        # print(name,chardet.detect(name))
         for i in range(2, number + 1):
             base_url = "https://ischool.xiaogj.com"
             cur_time = int(round(time.time() * 1000))
             data = self.he.get_rows_value(i, 2)
             case_number, case_name, if_run, pre_condition, request_way, take_header, action_cookie, interface, appid, request_data, expect_way, expect_value, result, wrong_data, return_data, inherit_element = data
-            print(data)
             url = base_url + interface
             request_data = json.loads(request_data, encoding="utf-8")
             request_data["_t_"] = cur_time
@@ -49,7 +46,7 @@ class addstudent:
                 result = self.hw.do_request(url, request_way, request_data, header=hearder, cookie=None,
                                             take_headers=take_header)
             try:
-                print(result)
+                print(case_name)
                 flag = result["result"]["msg"]
                 result = json.dumps(result)
                 if flag == "成功":

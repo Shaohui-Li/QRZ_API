@@ -45,12 +45,11 @@ class addclue:
                 "Connection": "keep-alive",
                 "Host": "ischool.xiaogj.com"
             }
-            print(name,request_data)
             if if_run == "YES":
                 result = self.hw.do_request(url, request_way, request_data, header=hearder, cookie=None,
                                 take_headers=take_header)
             try:
-                print(result)
+                print(case_name)
                 flag = result["result"]["msg"]
                 result=json.dumps(result)
                 if flag=="成功":

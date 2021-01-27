@@ -50,7 +50,7 @@ class sign_up_from_mobile:
                 result = self.hw.do_request(url, request_way, request_data, header=hearder, cookie=None,
                                 take_headers=take_header)
             try:
-                print(result)
+                print(case_name)
                 flag = result["result"]["msg"]
                 result=json.dumps(result)
                 if flag=="成功":

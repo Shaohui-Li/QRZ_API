@@ -30,7 +30,6 @@ class add_employee:
             cur_time = int(round(time.time() * 1000))
             data = self.he.get_rows_value(i, 2)
             case_number, case_name, if_run, pre_condition, request_way, take_header, action_cookie, interface, appid, request_data, expect_way, expect_value, result, wrong_data, return_data, inherit_element = data
-            print(data)
             url = base_url + interface
             request_data = json.loads(request_data, encoding="utf-8")
             request_data["_t_"] = cur_time
@@ -49,7 +48,7 @@ class add_employee:
                 result = self.hw.do_request(url, request_way, request_data, header=hearder, cookie=None,
                                             take_headers=take_header)
             try:
-                print(result)
+                print(case_name)
                 flag = result["result"]["msg"]
                 result = json.dumps(result)
                 if flag == "成功":

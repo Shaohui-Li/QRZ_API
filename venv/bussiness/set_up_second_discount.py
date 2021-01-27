@@ -48,7 +48,7 @@ class set_up_second_discount:
                 result = self.hw.do_request(url, request_way, request_data, header=hearder, cookie=None,
                                 take_headers=take_header)
             try:
-                print(result)
+                print(case_name)
                 flag = result["result"]["msg"]
                 if case_number=="case_021":
                     price=result["data"][0]["lessmoney"]

@@ -32,7 +32,6 @@ class transfer_to_advanced_cluepond:
             request_data["_t_"] = cur_time
             if case_number=="case_017":
                 request_data["ids"][0]=id
-                print(request_data)
             request_data = json.dumps(request_data)
             hearder = {
                 "Content-Type": "application/json",
@@ -43,7 +42,7 @@ class transfer_to_advanced_cluepond:
                 result = self.hw.do_request(url, request_way, request_data, header=hearder, cookie=None,
                                             take_headers=take_header)
             try:
-                print(result)
+                print(case_name)
                 if case_number=="case_005":
                     id=result["data"][0]["id"]
                 flag = result["result"]["msg"]

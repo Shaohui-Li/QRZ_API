@@ -23,8 +23,6 @@ class Login:
             url = base_url + interface
             request_data = json.loads(request_data)
             request_data["_t_"] = cur_time   
-            print(url,request_data)
-            print(request_data)
             request_data = json.dumps(request_data)
             hearder = {
                 "Content-Type": "application/json",
@@ -37,7 +35,7 @@ class Login:
                                             take_headers=take_header)
             try:
 
-                print("result=",result)
+                print(case_name)
                 flag = result["result"]["msg"]
                 if flag == "成功":
                     flag_value=True
