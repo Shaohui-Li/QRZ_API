@@ -2,6 +2,7 @@ from handle import Way_of_request
 import time
 import json
 import random
+import datetime
 from cookie_handle import cookie_action
 class QRZ_login:
 
@@ -37,7 +38,9 @@ class QRZ_login:
         data=json.dumps(user_info)
         data2 = self.Rw.post_url(url, data, header=hearder, cookie=None, cookie_location=None)
         print(data2)
+        startdate=date(2012, 12, 21)
 if __name__=="__main__":
-    number=("".join(random.choice("0123456789") for i in range(2)))
-    print(number+(str(round(time.time()*10000))))
-    
+    # number=("".join(random.choice("0123456789") for i in range(2)))
+    # print(number+(str(round(time.time()*10000))))
+    print(datetime.datetime.now().strftime("%Y{y}%m{m}%d").format(y="-", m="-", ))
+    print((datetime.datetime.now()+datetime.timedelta(days=1)).strftime("%Y-%m-%d"))

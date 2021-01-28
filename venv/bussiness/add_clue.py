@@ -23,13 +23,13 @@ class addclue:
         self.ha = cookie_action.Cookie_handle()
         self.ac=action.Action()
     def test_add_clue(self):
-        number = self.he.get_rows(1)
+        number = self.he.get_rows()
         phone=self.ac.createPhone()#生成随机手机号码
         name=self.ac.create_name()#生成随机姓名
         for i in range(2, number + 1):
             base_url = "https://ischool.xiaogj.com"
             cur_time = int(round(time.time() * 1000))
-            data = self.he.get_rows_value(i,1)
+            data = self.he.get_rows_value(i)
             case_number, case_name, if_run, pre_condition, request_way, take_header, action_cookie, interface, appid, request_data, expect_way, expect_value, result, wrong_data, return_data, inherit_element = data
             url = base_url + interface
             request_data = json.loads(request_data,encoding="utf-8")

@@ -13,7 +13,7 @@ class Login:
         self.hw = Way_of_request.Request_ways()
         self.ha = cookie_action.Cookie_handle()
     def login(self):
-        number = self.he.get_rows(0)
+        number = self.he.get_rows()
         returl="https%3A%2F%2Fschooltest.xiaogj.com%2Findex.html"
         for i in range(2, number + 1):
             base_url = "https://ischool.xiaogj.com"

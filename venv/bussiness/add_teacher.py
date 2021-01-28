@@ -21,7 +21,7 @@ class add_teacher:
         self.ac = action.Action()
    
     def test_add_teacher(self):
-        number = self.he.get_rows(3)#获取用例表行数
+        number = self.he.get_rows()#获取用例表行数
         phone=self.ac.createPhone()#生成随机手机号码
         name=self.ac.create_name()#生成随机姓名
         sex_list=[1,2]
@@ -29,7 +29,7 @@ class add_teacher:
         for i in range(2, number + 1):
             base_url = "https://ischool.xiaogj.com"
             cur_time = int(round(time.time() * 1000))
-            data = self.he.get_rows_value(i, 2)
+            data = self.he.get_rows_value(i)
             case_number, case_name, if_run, pre_condition, request_way, take_header, action_cookie, interface, appid, request_data, expect_way, expect_value, result, wrong_data, return_data, inherit_element = data
             url = base_url + interface
             request_data = json.loads(request_data, encoding="utf-8")

@@ -130,7 +130,7 @@ class Action:
         cur_time = int(round(time.time() * 1000))
         request_data["_t_"] = cur_time
         request_data = json.dumps(request_data)
-        result = sees.post(url, data=request_data,headers=hearder, cookies=None)#登录接口
+        result = sees.post(url, data=request_data,headers=hearder, cookies=None,verify=False)#登录接口
         result=result.text
         result = json.loads(result)
         print(result)
@@ -143,7 +143,7 @@ class Action:
         returl = "&returl=https%3A%2F%2Fschooltest.xiaogj.com%2Findex.html"
         url = authurl + "?appid=1&website=" + website + "&auth_token="+token
         print(url)
-        result=requests.head(url)
+        result=requests.head(url,verify=False)
         # result = sees.post(url, cookies=None,
         #                   verify=False,allow_redirects=True)  # 重定向sso
         print(result)
@@ -168,7 +168,7 @@ class Action:
         request_data={}
         request_data["_t_"] = cur_time
         try:
-            result = sees.post(url, data=request_data, headers=hearder, cookies=None)
+            result = sees.post(url, data=request_data, headers=hearder, cookies=None,verify=False)
             result = result.text
             result = json.loads(result)
             flag = result["result"]["code"]

@@ -5,6 +5,7 @@ sys.path.append(r"D:\project\QRZ_API\venv")
 from bussiness import Login,add_clue,add_student,add_advanced_clue,add_employee,add_teacher,admit_clue,allot_teacher,check_clue
 from bussiness import creat_order,creat_student_order,delete_clue,grab_clue,transfer_to_advanced_clue,transfer_to_advanced_cluepond,transfer_to_cluepond
 from bussiness import sign_up_from_PC,sign_up_from_mobile,set_up_second_discount,receive_money,abandon_order,abandon_receipt
+from bussiness import add_class_student,divide_into_classes,drop_out_of_school,edit_clue,edit_student,Refund
 import HTMLTestRunner
 import os
 from handle import reboat_request
@@ -80,8 +81,26 @@ class Test_API(unittest.TestCase):
     def test_abandon_order(self):
         result = abandon_order.abandon_order().test_abandon_order()
         self.assertTrue(result)
-    def abandon_receipt(self):
+    def test_abandon_receipt(self):
         result = abandon_receipt.abandon_receipt().test_abandon_receipt()
+        self.assertTrue(result)
+    def test_add_classstudent(self):
+        result = add_class_student.add_classstudent().test_add_classstudent()
+        self.assertTrue(result)
+    def test_divide_into_classes(self):
+        result = divide_into_classes.divide_into_classes().test_divide_into_classes()
+        self.assertTrue(result)
+    def test_drop_out_of_school(self):
+        result = drop_out_of_school.drop_out_of_school().test_drop_out_of_school()
+        self.assertTrue(result)
+    def test_edit_clue(self):
+        result = edit_clue.edit_clue().test_edit_clue()
+        self.assertTrue(result)
+    def test_edit_student(self):
+        result = edit_student.edit_student().test_edit_student()
+        self.assertTrue(result)
+    def test_refund(self):
+        result = Refund.refund().test_refund()
         self.assertTrue(result)
     def tearDown(self) -> None:
         print("测试结束")
@@ -110,7 +129,13 @@ if __name__=="__main__":
     suite.addTest(Test_API("test_set_up_second_discount"))
     suite.addTest(Test_API("test_receieve_money"))
     suite.addTest(Test_API("test_abandon_order"))
-    suite.addTest(Test_API("abandon_receipt"))
+    suite.addTest(Test_API("test_abandon_receipt"))
+    suite.addTest(Test_API("test_add_classstudent"))
+    suite.addTest(Test_API("test_divide_into_classes"))
+    suite.addTest(Test_API("test_drop_out_of_school"))
+    suite.addTest(Test_API("test_edit_clue"))
+    suite.addTest(Test_API("test_edit_student"))
+    suite.addTest(Test_API("test_refund"))
     time_name=str(time.strftime("%m-%d_%H-%M-%S", time.localtime())).strip(" ")
     report_name=time_name+"全日智API冒烟测试结果.html"
     report_path = os.path.dirname(os.getcwd()) + "\\Report\\"+report_name

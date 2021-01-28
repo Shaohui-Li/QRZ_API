@@ -23,15 +23,15 @@ class Excel_handle:
             index=0
         data=self.load_excel[sheet_name[index]]
         return data
-    def get_value(self,row,cols,index=None):
+    def get_value(self,row,cols):
         """获取单元格值"""
         data=self.get_sheet_data.cell(row=row,column=cols).value
         return data
-    def get_rows(self,index=None):
+    def get_rows(self):
         """获取行数"""
         rows=self.get_sheet_data.max_row
         return rows
-    def get_rows_value(self,row,index=None):
+    def get_rows_value(self,row):
         """获取行数值"""
         row_list=[]
         for i in self.get_sheet_data[row]:

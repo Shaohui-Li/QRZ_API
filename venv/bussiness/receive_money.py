@@ -24,11 +24,11 @@ class receieve_money:
         self.ac=action.Action()
     
     def test_receieve_money(self):
-        number = self.he.get_rows(19)
+        number = self.he.get_rows()
         for i in range(2, number + 1):
             base_url = "https://ischool.xiaogj.com"
             cur_time = int(round(time.time() * 1000))
-            data = self.he.get_rows_value(i,1)
+            data = self.he.get_rows_value(i)
             case_number, case_name, if_run, pre_condition, request_way, take_header, action_cookie, interface, appid, request_data, expect_way, expect_value, result, wrong_data, return_data, inherit_element = data
             url = base_url + interface
             request_data = json.loads(request_data,encoding="utf-8")
