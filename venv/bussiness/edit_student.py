@@ -25,7 +25,7 @@ class edit_student:
         number = self.he.get_rows()  # 获取用例表行数
         phone = self.ac.createPhone()  # 生成随机手机号码
         name = self.ac.create_name()  # 生成随机姓名
-        out_date=(datetime.datetime.now() + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+        out_date=(datetime.datetime.now() + datetime.timedelta(days=364)).strftime("%Y-%m-%d")
         indate = datetime.datetime.now().strftime("%Y{y}%m{m}%d").format(y="-", m="-", )
         for i in range(2, number + 1):
             base_url = "https://ischool.xiaogj.com"

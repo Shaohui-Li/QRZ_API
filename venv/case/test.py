@@ -43,4 +43,4 @@ if __name__=="__main__":
     # number=("".join(random.choice("0123456789") for i in range(2)))
     # print(number+(str(round(time.time()*10000))))
     print(datetime.datetime.now().strftime("%Y{y}%m{m}%d").format(y="-", m="-", ))
-    print((datetime.datetime.now()+datetime.timedelta(days=1)).strftime("%Y-%m-%d"))
+    print((datetime.datetime.now() + datetime.timedelta(days=3)).strftime("%Y-%m-%d %H:%M:%S"))
